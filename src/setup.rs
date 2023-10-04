@@ -1,9 +1,10 @@
 use crate::models::Track;
-use std::{env,error::Error, fs::File, ffi::OsString,process,};
+use std::error::Error;
 use mysql::prelude::*;
 use mysql::*;
 
-
+/// setup_msql is a helper function that will read a csv file containing Spotify data formatted
+/// like the Track struct in models.
 pub fn setup_msql(mut conn: mysql::PooledConn) -> Result<(), Box<dyn Error>> {
     let mut rdr =  csv::Reader::from_reader(std::io::stdin());
     let mut tracks = Vec::<Track>::new();

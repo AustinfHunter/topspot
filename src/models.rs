@@ -1,5 +1,7 @@
 use serde::{Serialize, Deserialize};
+use mysql::*;
 
+/// Track defines the track object as it appears in the database
 #[derive(Debug,Serialize, Deserialize)]
 pub struct Track {
     #[serde(rename(deserialize = "artist(s)_name"))]
@@ -18,8 +20,9 @@ pub struct Track {
     pub feel: TrackFeel
 }
 
+/// TrackFeel represents the subjective ratings of tracks
 #[derive(Debug,Serialize, Deserialize)]
-pub struct TrackFeel { 
+pub struct TrackFeel{ 
     #[serde(rename(deserialize = "danceability_%"))]
     pub danceability: u8,
     #[serde(rename(deserialize = "valence_%"))]
@@ -36,7 +39,9 @@ pub struct TrackFeel {
     pub speechiness: u8
 }
 
-struct User<'a> {
+#[derive(Debug, Serialize, Deserialize)]
+struct User {
     handle: String,
-    taste: &'a TrackFeel
+    taste: TrackFeel
 }
+

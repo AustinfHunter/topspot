@@ -1,9 +1,8 @@
-use std::env;
-
 mod models;
 mod setup;
+mod server;
+mod http;
 
-use std::net::TcpListener;
 use mysql::*;
 use mysql::prelude::*;
 use clap::*;
@@ -39,11 +38,5 @@ fn main() {
         println!("Skipping setup");
     }
 
-    let listener = TcpListener::bind("localhost:8080").unwrap();
-
-    for stream in listener.incoming() {
-        let stream = stream.unwrap();
-
-        println!("Listening on port 8080");
-    }
+    server::init("8080",&mut std::io::stdout());
 }
